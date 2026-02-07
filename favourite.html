@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My Music Page</title>
+   <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootst
+rap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootst
+rap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    
+
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark"> 
+     <div class="container-fluid"> 
+      <a class="navbar-brand">Discover</a>
+      <ul class="nav-links">
+        <li><a href="music.html">🏠Home</a></li>
+        <li><a href="favourite.html">❤️Favourite</a></li>
+        <form class="d-flex">
+        <input class="form-control me-2" id="searchInput"type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+          </ul>
+          
+        </form> 
+     </nav>
+     </div>
+
+
+<div class="container my-5">
+    <h2 class="mb-4">❤️ My Favourite Songs</h2>
+
+    <div id="favouriteList"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    const favouriteList = document.getElementById("favouriteList");
+
+
+     favourites.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "music-item";
+
+        // Image
+        const img = document.createElement("img");
+        img.src = item.image; 
+        img.alt = item.artist;
+
+        // Song info (name + artist + audio)
+        const infoDiv = document.createElement("div");
+        infoDiv.className = "music-info";
+
+        const title = document.createElement("span");
+        title.textContent = `${item.song} - ${item.artist}`;
+
+        const audio = document.createElement("audio");
+        audio.controls = true;
+
+        const source = document.createElement("source");
+        source.src = item.audio || `${item.song}.mp3`; // fallback
+        source.type = "audio/mpeg";
+
+        audio.appendChild(source);
+        infoDiv.appendChild(title);
+        infoDiv.appendChild(audio);
+
+        div.appendChild(img);
+        div.appendChild(infoDiv);
+
+        favouriteList.appendChild(div);
+    });
+});
+</script>
+<link rel="stylesheet" href="style.css">
+ 
+</body>
+</html>
